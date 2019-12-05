@@ -33,7 +33,7 @@ TESTING_SIZE = 50 # Size of the test set
 SEED = 66478  # Set to None for random seed.
 BATCH_SIZE = 16  # 64
 NUM_EPOCHS = 100
-RESTORE_MODEL = False  # If True, restore existing model instead of training a new one
+RESTORE_MODEL = True  # If True, restore existing model instead of training a new one
 RECORDING_STEP = 0
 
 # Set image patch size in pixels
@@ -536,11 +536,8 @@ def main(argv=None):  # pylint: disable=unused-argument
             img = mpimg.imread(image_filename)
             
             pimg = get_prediction(img)
-            pimg = Image.fromarray(pimg)
-            if pimg.mode != 'RGB':
-                pimg = pimg.convert('RGB')
-            
-            pimg = pimg.save(prediction_testing_dir + "prediction_" + str(i) + ".png")
+            print(pimg)
+            Image.fromarray(pimg).save(prediction_testing_dir + "prediction_" + str(i) + ".png")
             
             image_filename = prediction_testing_dir + "prediction_" + str(i) + ".png"
             image_filenames.append(image_filename)
