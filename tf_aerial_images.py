@@ -536,7 +536,13 @@ def main(argv=None):  # pylint: disable=unused-argument
             img = mpimg.imread(image_filename)
             
             pimg = get_prediction(img)
-            print(pimg)
+            w = pimg.shape[0]
+            h = pimg.shape[1]
+            pimg_3c = numpy.zeros((w, h, 3), dtype=numpy.uint8)
+            pimg = img_float_to_uint8(pimg)          
+            pimg_3c[:, :, 0] = pimg
+            pimg_3c[:, :, 1] = pimg
+            pimg_3c[:, :, 2] = pimg
             Image.fromarray(pimg).save(prediction_testing_dir + "prediction_" + str(i) + ".png")
             
             image_filename = prediction_testing_dir + "prediction_" + str(i) + ".png"
