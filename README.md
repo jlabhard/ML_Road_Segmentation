@@ -23,6 +23,6 @@ Our submission file can be run with Python 3.7, after the external installations
 
 The Python code explaining how we generated the model of our final submission is on the file ```u_net_model.py```.  We recommend the code to be run on GPU's since it is computationally expensive on a CPU architecture.
 
-The model of our final submission which has an F1 score of **0.906** on the platform can be downloaded through the following link: https://drive.google.com/file/d/1zubq9x5m0TZ0Fe2o6_SlyNfhEQVQQIXq/view?usp=sharingand and must be placed on the same folder as ```run.py```.
+The model of our final submission which has an F1 score of **0.906** on the platform can be downloaded through the following link: https://drive.google.com/file/d/1BmuJnqUNkY3K459k3d7ntE6heUMv6Ims/view?usp=sharing and must be placed on the same folder as ```run.py```.
 
 To generate the submission file, ```run.py``` has to be run: it takes the aforementioned model (has to be dowloaded due to space requirements) and creates the submission file called ```submission.csv```.
