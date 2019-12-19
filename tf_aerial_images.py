@@ -22,18 +22,15 @@ import tensorflow.python.platform
 import numpy
 import tensorflow as tf
 
-from Datasets.mask_to_submission import masks_to_submission
-
 NUM_CHANNELS = 3  # RGB images
 PIXEL_DEPTH = 255
 NUM_LABELS = 2
 TRAINING_SIZE = 20
 VALIDATION_SIZE = 5  # Size of the validation set.
-TESTING_SIZE = 50 # Size of the test set
 SEED = 66478  # Set to None for random seed.
 BATCH_SIZE = 16  # 64
 NUM_EPOCHS = 100
-RESTORE_MODEL = True  # If True, restore existing model instead of training a new one
+RESTORE_MODEL = False  # If True, restore existing model instead of training a new one
 RECORDING_STEP = 0
 
 # Set image patch size in pixels
@@ -201,7 +198,7 @@ def make_img_overlay(img, predicted_img):
 
 def main(argv=None):  # pylint: disable=unused-argument
 
-    data_dir = 'Datasets/training/'
+    data_dir = 'training/'
     train_data_filename = data_dir + 'images/'
     train_labels_filename = data_dir + 'groundtruth/' 
 
@@ -525,31 +522,7 @@ def main(argv=None):  # pylint: disable=unused-argument
             pimg = get_prediction_with_groundtruth(train_data_filename, i)
             Image.fromarray(pimg).save(prediction_training_dir + "prediction_" + str(i) + ".png")
             oimg = get_prediction_with_overlay(train_data_filename, i)
-            oimg.save(prediction_training_dir + "overlay_" + str(i) + ".png")
-        
-        image_filenames = []
-        prediction_testing_dir = "predictions_testing/"
-        if not os.path.isdir(prediction_testing_dir):
-            os.mkdir(prediction_testing_dir)
-        for i in range(1, TESTING_SIZE + 1):
-            image_filename = "Datasets/test_set_images/test_" + str(i) + "/test_" + str(i) + ".png"
-            img = mpimg.imread(image_filename)
-            
-            pimg = get_prediction(img)
-            w = pimg.shape[0]
-            h = pimg.shape[1]
-            pimg_3c = numpy.zeros((w, h, 3), dtype=numpy.uint8)
-            pimg = img_float_to_uint8(pimg)          
-            pimg_3c[:, :, 0] = pimg
-            pimg_3c[:, :, 1] = pimg
-            pimg_3c[:, :, 2] = pimg
-            Image.fromarray(pimg).save(prediction_testing_dir + "prediction_" + str(i) + ".png")
-            
-            image_filename = prediction_testing_dir + "prediction_" + str(i) + ".png"
-            image_filenames.append(image_filename)
-        
-        submission_filename = "submission.csv"
-        masks_to_submission(submission_filename, *image_filenames)
+            oimg.save(prediction_training_dir + "overlay_" + str(i) + ".png")       
 
 
 if __name__ == '__main__':

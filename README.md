@@ -1,32 +1,28 @@
-# Project Road Segmentation
+# Road Segmentation
 
-For this choice of project task, we provide a set of satellite images acquired 
-from GoogleMaps. We also provide ground-truth images where each pixel is labeled 
-as road or background. 
+This project consists of identifying roads given aerial satellite images as an
+input. We participate to an ML challenge with the final submission of our code which can be accessed with this [link](https://www.aicrowd.com/challenges/epfl-ml-road-segmentation-2019). Our method uses a Deep Convolutional Neural Network called
+[U-Net](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/)
+developed at the University of Freiburg for image segmentation.
+For the implementation we use an external Python library called [Keras](https://keras.io/) which is a
+high level user friendly API capable of running on top of [TensorFlow](https://www.tensorflow.org/). This
+library is useful to run on either CPU's or GPU's, the code being adapted for one or the other very easily.
 
-Your task is to train a classifier to segment roads in these images, i.e. 
-assigns a label `road=1, background=0` to each pixel.
+### Installation
+The installation for TensorFlow and Keras can be
+done through ```pip install tensorflow``` ```pip install keras``` under MacOS, Linux and Anaconda on Windows.
+Our submission file can be run with Python 3.7, after the external installations mentioned above and the installations of the standard python libraries ```numpy```, ```pandas``` and ```matplotlib```.
 
-Submission system environment setup:
+### File description
+* ``` run.py ```: File loading the saved model and creating the submission file.
+* ```u_net_model.h5```: File where the U-Net model is stored.
+* ```segment_aerial_images.ipynb```: implementation of logistic regression model (given by the project)
+* ```tf_aerial_images.py```: implementation of a CNN with two convolutional+pooling layers with a soft-max loss (given by the project)
 
-1. The dataset is available from the 
-[CrowdAI page](https://www.crowdai.org/challenges/epfl-ml-road-segmentation).
+### How to run our code
 
-2. Obtain the python notebook `segment_aerial_images.ipynb` from this github 
-folder, to see example code on how to extract the images as well as 
-corresponding labels of each pixel.
+The Python code explaining how we generated the model of our final submission is on the file ```u_net_model.py```.  We recommend the code to be run on GPU's since it is computationally expensive on a CPU architecture.
 
-The notebook shows how to use `scikit learn` to generate features from each 
-pixel, and finally train a linear classifier to predict whether each pixel is 
-road or background. Or you can use your own code as well. Our example code here 
-also provides helper functions to visualize the images, labels and predictions. 
-In particular, the two functions `mask_to_submission.py` and 
-`submission_to_mask.py` help you to convert from the submission format to a 
-visualization, and vice versa.
+The model of our final submission which has an F1 score of **0.906** on the platform can be downloaded through the following link: https://drive.google.com/file/d/1zubq9x5m0TZ0Fe2o6_SlyNfhEQVQQIXq/view?usp=sharingand and must be placed on the same folder as ```run.py```.
 
-3. As a more advanced approach, try `tf_aerial_images.py`, which demonstrates 
-the use of a basic convolutional neural network in TensorFlow for the same 
-prediction task.
-
-Evaluation Metric:
- [F1 score](https://en.wikipedia.org/wiki/F1_score)
+To generate the submission file, ```run.py``` has to be run: it takes the aforementioned model (has to be dowloaded due to space requirements) and creates the submission file called ```submission.csv```.
